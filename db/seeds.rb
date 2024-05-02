@@ -16,6 +16,6 @@
     description: "This is a sample product #{n + 1}",
     sku: "AAA-#{n + 1}"
   )
-  image_file = 'app/assets/images/product.webp'
-  product.image.attach(io: File.open(image_file), filename: 'product.webp')
+  image_file = 'app/assets/images/product.png'
+  product.image.attach(io: File.open(image_file), filename: 'product.png')
 end
