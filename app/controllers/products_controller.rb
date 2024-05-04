@@ -7,6 +7,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @related_products = Product.order(id: :desc).limit(4)
+    @related_products = Product.with_attached_image.order(id: :desc).limit(4)
   end
 end
