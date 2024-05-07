@@ -15,4 +15,9 @@
 #
 class Product < ApplicationRecord
   has_one_attached :image
+
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :description, presence: true, length: { maximum: 1000 }
+  validates :price, presence: true
+  validates :sku, presence: true, format: { with: /\A[A-Z]{3}-\d{3}\z/ }
 end

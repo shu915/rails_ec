@@ -10,5 +10,9 @@ Rails.application.routes.draw do
 
   root 'products#index'
 
-  resources :products
+  resources :products, only: %w[index show]
+
+  namespace :admin do
+    resources :products, except: ['show']
+  end
 end
