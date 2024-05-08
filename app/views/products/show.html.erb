@@ -1,3 +1,5 @@
+<%= render partial: 'shared/flash_errors' %>
+<%= render partial: 'shared/flash_notice' %>
 <!-- Product section-->
 <section class="py-5">
   <div class="container px-4 px-lg-5 my-5">
@@ -22,11 +24,14 @@
         </div>
         <p class="lead"><%= @product.description %></p>
         <div class="d-flex">
-          <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-          <button class="btn btn-outline-dark flex-shrink-0" type="button">
-            <i class="bi-cart-fill me-1"></i>
-            Add to cart
-          </button>
+          <%= form_with url: cart_path(current_cart, product_id: @product.id), data: { turbo_method: :post } do |f| %>
+            <div class="form-group d-flex justify-content-center align-items-center mt-2">
+              <%= f.select :quantity, options_for_select(1..9), {}, { class: 'form-control' } %>
+              <%= f.button type: :submit, class: 'btn btn-dark flex-shrink-0 ms-2' do %>
+                <i class="bi-cart-fill me-1"></i>カートに追加
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -63,7 +68,10 @@
               </div>
               <!-- Product actions-->
               <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                <div class="text-center"> <%= link_to cart_path(product_id: related.id, quantity: 1 ), data: { turbo_method: :post } ,class: "btn btn-outline-dark mt-auto" do %>
+                    <i class="bi-cart-fill me-1"></i>カートに追加
+                  <% end %>
+                </div>
               </div>
             </div>
           <% end %>
