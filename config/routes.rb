@@ -16,8 +16,5 @@ Rails.application.routes.draw do
     resources :products, except: ['show']
   end
 
-  # get '/my_cart' => 'carts#my_cart'
-  # post '/add_item' => 'carts#create'
-  # delete '/delete_item' => 'carts#destroy'
   resource :cart, only: %i[show create destroy]
 end

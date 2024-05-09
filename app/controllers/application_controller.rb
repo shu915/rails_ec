@@ -2,26 +2,18 @@
 
 class ApplicationController < ActionController::Base
   helper_method :current_cart
-  before_action :set_cart_item_count
+  before_action :set_cart_products_count
 
   private
 
   def current_cart
-    if session[:cart_id].present?
-      current_cart = Cart.find_by(id: session[:cart_id])
-      return current_cart unless current_cart.nil?
-
-      session[:cart_id] = nil
-
-    end
-
-    current_cart = Cart.create
+    current_cart = Cart.find_or_create_by(id: session[:cart_id])
     session[:cart_id] = current_cart.id
     current_cart
   end
 
-  def set_cart_item_count
-    @cart_items = current_cart.cart_items.includes([:product])
-    @cart_item_count = @cart_items.sum(&:quantity)
+  def set_cart_products_count
+    @cart_products = current_cart.cart_products.includes([:product])
+    @cart_products_count = @cart_products.sum(&:quantity)
   end
 end

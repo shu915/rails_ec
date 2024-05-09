@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: cart_items
+# Table name: cart_products
 #
 #  id         :bigint           not null, primary key
 #  quantity   :integer          default(0)
@@ -13,15 +13,15 @@
 #
 # Indexes
 #
-#  index_cart_items_on_cart_id     (cart_id)
-#  index_cart_items_on_product_id  (product_id)
+#  index_cart_products_on_cart_id     (cart_id)
+#  index_cart_products_on_product_id  (product_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (cart_id => carts.id)
 #  fk_rails_...  (product_id => products.id)
 #
-class CartItem < ApplicationRecord
+class CartProduct < ApplicationRecord
   belongs_to :cart
   belongs_to :product
 

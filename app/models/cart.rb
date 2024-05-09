@@ -9,5 +9,5 @@
 #  updated_at :datetime         not null
 #
 class Cart < ApplicationRecord
-  has_many :cart_items, dependent: :destroy
+  has_many :cart_products, dependent: :destroy
 end

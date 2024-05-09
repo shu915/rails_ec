@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: cart_items
+# Table name: cart_products
 #
 #  id         :bigint           not null, primary key
 #  quantity   :integer          default(0)
@@ -13,8 +13,8 @@
 #
 # Indexes
 #
-#  index_cart_items_on_cart_id     (cart_id)
-#  index_cart_items_on_product_id  (product_id)
+#  index_cart_products_on_cart_id     (cart_id)
+#  index_cart_products_on_product_id  (product_id)
 #
 # Foreign Keys
 #
@@ -23,6 +23,6 @@
 #
 require 'rails_helper'
 
-RSpec.describe CartItem, type: :model do
+RSpec.describe CartProduct, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end
