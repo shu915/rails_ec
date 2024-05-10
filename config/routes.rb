@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :products, except: ['show']
   end
+
+  resource :cart, only: %i[show create destroy]
 end

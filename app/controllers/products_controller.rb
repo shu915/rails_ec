@@ -2,7 +2,7 @@
 
 class ProductsController < ApplicationController
   def index
-    @products = Product.with_attached_image.order(:id)
+    @products = Product.with_attached_image.order(:id).page(params[:page]).per(8)
   end
 
   def show

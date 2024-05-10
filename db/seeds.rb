@@ -10,11 +10,11 @@
 
 8.times do |n|
   product = Product.create(
-    name: "Product #{n + 1}",
-    price: 10.00,
-    discouted_price: 7.00,
-    description: "This is a sample product #{n + 1}",
-    sku: "AAA-#{n + 1}"
+    name: "商品 #{n + 1}",
+    price: 1000,
+    discouted_price: 800,
+    description: "これは、サンプル商品１です #{n + 1}",
+    sku: 'AAA-111'
   )
   image_file = 'app/assets/images/product.png'
   product.image.attach(io: File.open(image_file), filename: 'product.png')

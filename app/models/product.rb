@@ -15,6 +15,7 @@
 #
 class Product < ApplicationRecord
   has_one_attached :image
+  has_many :cart_products, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, presence: true, length: { maximum: 1000 }
