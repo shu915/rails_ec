@@ -21,6 +21,21 @@ ja:
         discounted_price: 割引後の値段
         image: 商品画像
         sku: SKU
+      purchase:
+        lastname: 名字
+        firstname: 名前
+        username: ユーザーネーム
+        email: メールアドレス
+        address1: 住所1
+        address2: 住所2
+        country: 国
+        state: 都道府県
+        zip_code: 郵便番号
+        name_on_card: カードの名義
+        card_number: カード番号
+        expiration: 有効期限
+        cvv: CVV
+        
   date:
     abbr_day_names:
     - 日

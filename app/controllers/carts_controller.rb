@@ -11,6 +11,8 @@ class CartsController < ApplicationController
         cart_product.quantity * cart_product.product.price
       end
     end
+
+    @purchase = Purchase.new
   end
 
   def create

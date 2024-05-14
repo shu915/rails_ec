@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>決済リスト</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>お名前</th>
+        <th>購入金額</th>
+        <th>日付</th>
+        <th></th>
+      </tr>
+      <thead>
+        <tbody>
+          <% @purchases.each do |purchase| %>
+            <tr>
+              <td><%= purchase.id %></td>
+              <td><%= purchase.lastname + ' ' + purchase.firstname %></td>
+              <td><%= number_to_currency(purchase.total_pay) %></td>
+              <td><%= purchase.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+              <td><%= link_to '詳細へ' ,admin_purchase_path(id: purchase.id), class: 'btn btn-dark' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>

@@ -21,6 +21,8 @@ services:
     environment:
       - BASIC_AUTH_USER=admin
       - BASIC_AUTH_PASSWORD=pw
+    tty: true
+    stdin_open: true
   js:
     image: rails_template:latest
     command: yarn build --watch
