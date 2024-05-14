@@ -1,0 +1,34 @@
+.product__link {
+  color: #333;
+  text-decoration: none;
+}
+.product__link:hover {
+  color: #333;
+}
+
+.p-admin-new__form {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.p-admin-new_from-require {
+  background-color: red;
+  color: #fff;
+  font-size: 14px;
+  padding: 2px;
+  border-radius: 5px;
+  margin-left: 4px;
+}
+
+li {
+  list-style: none;
+}
+
+td {
+  vertical-align: baseline;
+}
+
+ul {
+  margin-bottom: 0;
+}/*# sourceMappingURL=style.css.map */

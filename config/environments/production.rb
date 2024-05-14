@@ -96,7 +96,7 @@ Rails.application.configure do
 
   config.active_storage.service = :amazon
 
-  host = 'https://rails-ec-8b3b5dd5763a.herokuapp.com/'
+  host = 'https://shu-web-creation.com/'
   config.action_mailer.default_url_options = { host: }
   ActionMailer::Base.smtp_settings = {
     port: ENV['MAILGUN_SMTP_PORT'],
