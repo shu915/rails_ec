@@ -1,0 +1,105 @@
+<div class="container">
+  <h1 class="mt-3">決済明細</h1>
+  <div class="d-flex justify-content-end">
+    <%= link_to '決済一覧へ', admin_purchases_path, class: 'btn btn-dark' %>
+  </div>
+  <h2 class="mt-3">支払い住所</h2>
+  <table class="table table-striped">
+    <tr>
+      <th  class="col-4">id</th>
+      <td>
+        <%= @purchase.id %>
+      </th>
+    </tr>
+    <tr>
+      <th>お名前</th>
+      <td><%= @purchase.lastname + ' ' + @purchase.firstname %></td>
+    </tr>
+    <tr>
+      <th>ユーザーネーム</th>
+      <td><%= @purchase.username %></td>
+    </tr>
+    <tr>
+      <th>Eメール</th>
+      <td><%= @purchase.email %></td>
+    </tr>
+    <tr>
+      <th>郵便番号</th>
+      <td><%= @purchase.zip_code %></td>
+    </tr>
+    <tr>
+      <th>国</th>
+      <td><%= @purchase.country %></td>
+    </tr>
+    <tr>
+      <th>都道府県</th>
+      <td><%= @purchase.state %></td>
+    </tr>
+    <tr>
+      <th>住所1</th>
+      <td><%= @purchase.address1 %></td>
+    </tr>
+    <tr>
+      <th>住所2</th>
+      <td><%= @purchase.address2 %></td>
+    </tr>
+    <tr>
+      <th>支払先と配送先が同じ</th>
+      <td><%= @purchase.same_address %></td>
+    </tr>
+    <tr>
+      <th>支払い情報を保存する</th>
+      <td><%= @purchase.save_info %></td>
+    </tr>
+  </table>
+  <h2 class="mt-5">カード情報</h2>
+  <table class="table table-striped">
+    <tr>
+      <th class="col-4">カード名義</th>
+      <td><%= @purchase.name_on_card %></td>
+    </tr>
+    <tr>
+      <th>カード番号</th>
+      <td><%= @purchase.card_number %></td>
+    </tr>
+    <tr>
+      <th>期限</th>
+      <td><%= @purchase.expiration %></td>
+    </tr>
+    <tr>
+      <th>カード名義</th>
+      <td><%= @purchase.cvv %></td>
+    </tr>
+  </table>
+  <h2 class="mt-5">購入した商品</h2>
+  <table class="table mb-5">
+    <thead>
+      <tr>
+        <th>商品id</th>
+        <th>商品名</th>
+        <th>値段</th>
+        <th>個数</th>
+        <th>小計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @purchase.purchase_products.each do |purchase_product| %>
+        <tr>
+          <td class="col-2"><%= purchase_product.product.id %></td>
+          <td class="col-2"><%= link_to purchase_product.name_at_purchase, product_path(purchase_product.product.id) %></td>
+          <td class="col-2"><%= number_to_currency(purchase_product.price_at_purchase) %></td>
+          <td class="col-1"><%= purchase_product.quantity %></td>
+          <td class="col-2"><%= number_to_currency(purchase_product.subtotal) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="col-8" colspan="4">合計</td>
+        <td class="col-4">
+          <%= number_to_currency(@purchase.total_pay) %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

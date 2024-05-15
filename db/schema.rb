@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_08_225955) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_15_035715) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,24 +59,53 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_08_225955) do
 
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
-    t.decimal "price", precision: 10, scale: 2, null: false
-    t.decimal "discouted_price", precision: 10, scale: 2
+    t.integer "price", null: false
+    t.integer "discouted_price"
     t.text "description"
     t.string "sku", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.integer "status"
+  create_table "purchase_products", force: :cascade do |t|
+    t.bigint "purchase_id", null: false
+    t.bigint "product_id", null: false
+    t.string "name_at_purchase", null: false
+    t.integer "price_at_purchase", null: false
+    t.integer "quantity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_purchase_products_on_product_id"
+    t.index ["purchase_id"], name: "index_purchase_products_on_purchase_id"
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.string "firstname", null: false
+    t.string "lastname", null: false
+    t.string "username"
+    t.string "email", null: false
+    t.string "address1", null: false
+    t.string "address2"
+    t.string "country", null: false
+    t.string "state", null: false
+    t.string "zip_code", null: false
+    t.boolean "same_address", default: true
+    t.boolean "save_info", default: true
+    t.string "name_on_card", null: false
+    t.string "card_number", null: false
+    t.string "expiration", null: false
+    t.string "cvv", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "cart_id"
+    t.index ["cart_id"], name: "index_purchases_on_cart_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "products"
+  add_foreign_key "purchase_products", "products"
+  add_foreign_key "purchase_products", "purchases"
+  add_foreign_key "purchases", "carts", on_delete: :nullify
 end

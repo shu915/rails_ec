@@ -6,9 +6,9 @@
 #
 #  id              :bigint           not null, primary key
 #  description     :text
-#  discouted_price :decimal(10, 2)
+#  discouted_price :integer
 #  name            :string           not null
-#  price           :decimal(10, 2)   not null
+#  price           :integer          not null
 #  sku             :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

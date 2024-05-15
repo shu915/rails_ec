@@ -13,6 +13,9 @@
     <div class="p-admin-index__new-botton d-flex justify-content-end mt-3">
       <%= link_to '商品を追加', new_admin_product_path, class: 'btn btn-dark' %>
     </div>
+    <div class="p-admin-index__new-botton d-flex justify-content-end mt-3">
+      <%= link_to '決済リスト', admin_purchases_path, class: 'btn btn-dark mt-1' %>
+    </div>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center mt-5">
       <% @products.each do |product| %>
         <div class="col mb-5">

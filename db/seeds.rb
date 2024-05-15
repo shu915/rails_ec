@@ -13,7 +13,7 @@
     name: "商品 #{n + 1}",
     price: 1000,
     discouted_price: 800,
-    description: "これは、サンプル商品１です #{n + 1}",
+    description: "これは、サンプル商品 #{n + 1}です",
     sku: 'AAA-111'
   )
   image_file = 'app/assets/images/product.png'
