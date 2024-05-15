@@ -22,9 +22,19 @@
 #  zip_code     :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  cart_id      :bigint
+#
+# Indexes
+#
+#  index_purchases_on_cart_id  (cart_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (cart_id => carts.id) ON DELETE => nullify
 #
 class Purchase < ApplicationRecord
   has_many :purchase_products, dependent: :destroy
+  belongs_to :cart
   validate :cart_not_empty
   validates :lastname, presence: true, length: { maximum: 10 }
   validates :firstname, presence: true, length: { maximum: 10 }
@@ -45,11 +55,19 @@ class Purchase < ApplicationRecord
                   numericality: { only_integer: true },
                   length: { in: 3..4 }
 
+  after_create :send_mails_and_destroy_cart
+
   def total_pay
     purchase_products.sum(&:subtotal)
   end
 
   private
+
+  def send_mails_and_destroy_cart
+    AdminMailer.create_admin_mail(self).deliver_now
+    CustomerMailer.create_customer_mail(self).deliver_now
+    cart.destroy
+  end
 
   def cart_not_empty
     return unless purchase_products.empty?

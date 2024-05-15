@@ -2,7 +2,7 @@
 
 class PurchasesController < ApplicationController
   def create
-    @purchase = Purchase.new(purchase_params)
+    @purchase = Purchase.new(purchase_params.merge(cart_id: current_cart.id))
 
     current_cart.cart_products.each do |cart_product|
       product = cart_product.product
@@ -17,11 +17,6 @@ class PurchasesController < ApplicationController
     end
 
     if @purchase.save
-
-      AdminMailer.create_admin_mail(@purchase).deliver_now
-      CustomerMailer.create_customer_mail(@purchase).deliver_now
-      current_cart.destroy
-
       flash[:notice] = 'ご購入ありがとうございます'
       redirect_to products_path
     else
