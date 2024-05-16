@@ -18,23 +18,28 @@
 #  same_address :boolean          default(TRUE)
 #  save_info    :boolean          default(TRUE)
 #  state        :string           not null
+#  total_price  :integer
 #  username     :string
 #  zip_code     :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  cart_id      :bigint
+#  coupon_id    :bigint
 #
 # Indexes
 #
-#  index_purchases_on_cart_id  (cart_id)
+#  index_purchases_on_cart_id    (cart_id)
+#  index_purchases_on_coupon_id  (coupon_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (cart_id => carts.id) ON DELETE => nullify
+#  fk_rails_...  (coupon_id => coupons.id)
 #
 class Purchase < ApplicationRecord
   has_many :purchase_products, dependent: :destroy
   belongs_to :cart
+  belongs_to :coupon
   validate :cart_not_empty
   validates :lastname, presence: true, length: { maximum: 10 }
   validates :firstname, presence: true, length: { maximum: 10 }
@@ -55,7 +60,7 @@ class Purchase < ApplicationRecord
                   numericality: { only_integer: true },
                   length: { in: 3..4 }
 
-  after_create :send_mails_and_destroy_cart
+  after_create :after_purchase_save
 
   def total_pay
     purchase_products.sum(&:subtotal)
@@ -63,10 +68,16 @@ class Purchase < ApplicationRecord
 
   private
 
-  def send_mails_and_destroy_cart
+  def after_purchase_save
     AdminMailer.create_admin_mail(self).deliver_now
     CustomerMailer.create_customer_mail(self).deliver_now
     cart.destroy
+    return if coupon_id.blank?
+
+    coupon = Coupon.find_by(id: coupon_id)
+    return unless coupon
+
+    coupon.update(is_used: true)
   end
 
   def cart_not_empty

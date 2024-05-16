@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_15_035715) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_16_001912) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_035715) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "coupons", force: :cascade do |t|
+    t.string "code", limit: 7, null: false
+    t.integer "discount_amount", null: false
+    t.boolean "is_used", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_coupons_on_code", unique: true
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.integer "price", null: false
@@ -98,7 +107,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_035715) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "cart_id"
+    t.bigint "coupon_id"
+    t.integer "total_price"
     t.index ["cart_id"], name: "index_purchases_on_cart_id"
+    t.index ["coupon_id"], name: "index_purchases_on_coupon_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -108,4 +120,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_035715) do
   add_foreign_key "purchase_products", "products"
   add_foreign_key "purchase_products", "purchases"
   add_foreign_key "purchases", "carts", on_delete: :nullify
+  add_foreign_key "purchases", "coupons"
 end

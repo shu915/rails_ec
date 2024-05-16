@@ -2,15 +2,7 @@
 
 class CartsController < ApplicationController
   def show
-    @cart_products = current_cart.cart_products.includes([:product])
-
-    @total = @cart_products.sum do |cart_product|
-      if cart_product.product.discouted_price.present?
-        cart_product.quantity * cart_product.product.discouted_price
-      else
-        cart_product.quantity * cart_product.product.price
-      end
-    end
+    @total_price = calc_total_price
 
     @purchase = Purchase.new
   end
@@ -33,9 +25,19 @@ class CartsController < ApplicationController
     redirect_to cart_path
   end
 
+  def coupon_check
+    @coupon = Coupon.find_by(code: coupon_params[:code])
+    session[:coupon_id] = @coupon.id if @coupon
+    redirect_to cart_path
+  end
+
   private
 
   def cart_product_params
     params.permit(:id, :product_id, :quantity)
+  end
+
+  def coupon_params
+    params.permit(:code)
   end
 end

@@ -16,7 +16,11 @@ class PurchasesController < ApplicationController
       )
     end
 
+    @purchase.coupon_id = session[:coupon_id]
+    @purchase.total_price = calc_total_price
+
     if @purchase.save
+      session.delete(:coupon_id)
       flash[:notice] = 'ご購入ありがとうございます'
       redirect_to products_path
     else

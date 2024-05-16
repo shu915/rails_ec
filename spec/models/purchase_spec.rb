@@ -18,19 +18,23 @@
 #  same_address :boolean          default(TRUE)
 #  save_info    :boolean          default(TRUE)
 #  state        :string           not null
+#  total_price  :integer
 #  username     :string
 #  zip_code     :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  cart_id      :bigint
+#  coupon_id    :bigint
 #
 # Indexes
 #
-#  index_purchases_on_cart_id  (cart_id)
+#  index_purchases_on_cart_id    (cart_id)
+#  index_purchases_on_coupon_id  (coupon_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (cart_id => carts.id) ON DELETE => nullify
+#  fk_rails_...  (coupon_id => coupons.id)
 #
 require 'rails_helper'
 

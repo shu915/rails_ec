@@ -94,12 +94,18 @@
       <% end %>
     </tbody>
     <tfoot>
-      <tr>
-        <td class="col-8" colspan="4">合計</td>
-        <td class="col-4">
-          <%= number_to_currency(@purchase.total_pay) %>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+      tr>
+      <td class="col-8" colspan="4">クーポン割引</td>
+      <td class="col-4">
+        <%= number_to_currency(@purchase.coupon.discount_amount) %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-8" colspan="4">合計</td>
+      <td class="col-4">
+        <%= number_to_currency(@purchase.total_price) %>
+      </td>
+    </tr>
+  </tfoot>
+</table>
 </div>

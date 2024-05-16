@@ -11,8 +11,8 @@
 8.times do |n|
   product = Product.create(
     name: "商品 #{n + 1}",
-    price: 1000,
-    discouted_price: 800,
+    price: 2000,
+    discouted_price: 1800,
     description: "これは、サンプル商品 #{n + 1}です",
     sku: 'AAA-111'
   )
