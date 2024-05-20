@@ -96,8 +96,7 @@
     <tfoot>
       tr>
       <td class="col-8" colspan="4">クーポン割引</td>
-      <td class="col-4">
-        <%= number_to_currency(@purchase.coupon.discount_amount) %>
+      <td class="col-4">-<%= number_to_currency(@purchase.coupon.discount_amount) %>
       </td>
     </tr>
     <tr>

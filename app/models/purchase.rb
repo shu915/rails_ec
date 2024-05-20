@@ -72,9 +72,10 @@ class Purchase < ApplicationRecord
     AdminMailer.create_admin_mail(self).deliver_now
     CustomerMailer.create_customer_mail(self).deliver_now
     cart.destroy
+
     return if coupon_id.blank?
 
-    coupon = Coupon.find_by(id: coupon_id)
+    coupon = self.coupon
     return unless coupon
 
     coupon.update(is_used: true)
