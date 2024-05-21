@@ -32,15 +32,26 @@
           <% end %>
           <li class="list-group-item d-flex justify-content-between">
             <span>合計金額(日本円)</span>
-            <strong><%= number_to_currency(@total) %></strong>
+            <strong><%= number_to_currency(@total_price) %></strong>
           </li>
         </ul>
-        <form class="card p-2">
+        <div class="card p-2 mt-1">
+          <% if @coupon.nil? %>
+            <p>クーポンは無効です</p>
+          <% elsif @coupon.is_used? %>
+            <p>使用済みのクーポンです</p>
+          <% else %>
+            <p>割引額：
+              <%= @coupon.discount_amount %>円
+            </p>
+          <% end %>
+        </div>
+        <%= form_with method: :get, url: coupon_path, class: 'card p-2 mt-2' do |f|%>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
+            <%= f.text_field :code, placeholder: 'クーポンを入力', class: 'form-control' %>
+            <%= f.submit '適用する', class: 'btn btn-secondary' %>
           </div>
-        </form>
+        <% end %>
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">請求先住所</h4>

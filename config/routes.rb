@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   resource :cart, only: %i[show create destroy]
 
   resources :purchases, only: %i[create]
+
+  get 'coupon', to: 'carts#coupon_check'
 end
